@@ -23,8 +23,8 @@ class Database
     
     function db_connect()
     {
-        $a_link = mysqli_connect($this->$host, $this->$user, $this->$password, $this->$database, $this->$port, $this->$socket);
-        if (!$this->$link)
+        $a_link = mysqli_connect($this->host, $this->user, $this->password, $this->database, $this->port, $this->socket);
+        if (!$a_link)
         {
             die("Cannot connect to database.");
         }
@@ -33,19 +33,14 @@ class Database
         
     }
     
-    function yay()
-    {
-        return 'yay';
-    }
-    
     function db_close()
     {
-        mysqli_close($this->$link);
+        mysqli_close($this->link);
     }
     
     function do_query($query)
     {
-        $result = mysqli_query($this->$link, $query);
+        $result = mysqli_query($this->link, $query);
         return $result;
 
     }
