@@ -7,11 +7,11 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>hi</title>
+        <title></title>
     </head>
     <body>
         <?php
-            echo "hi";
+            echo "hi! blah blah!";
         ?>
     </body>
 </html>
