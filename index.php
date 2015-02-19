@@ -16,16 +16,8 @@ and open the template in the editor.
     <body>
         <?php
             echo "Hi! Blah blah!";
+            print '<a href="event_submit_form.php">click me!</a>';
             echo '<br />';
-            /*$link = mysqli_connect(null, 'root', 'root', 'ur_hungry', 3306, '/Applications/MAMP/tmp/mysql/mysql.sock');
-            $result = mysqli_query($link, 'SELECT * FROM free_food_events');
-            
-            while ($row = mysqli_fetch_array($result))
-            {
-                print $row['event_where'];
-                print '<br />';
-            }*/
-
             $ur = new Database();
             $ur->db_connect();
             $result = $ur->do_query('SELECT * FROM free_food_events');
