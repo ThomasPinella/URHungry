@@ -47,25 +47,35 @@ and open the template in the editor.
 		{
 			margin-left:auto;
 			margin-right:auto;
-			border-collapse: collapse;
+			/*border-collapse: collapse;*/
 			border-spacing: 0;
 			table-layout:fixed;
-			border:3px solid blue;
+			/*border:3px solid blue;*/
 			box-shadow:2px 2px 6px black;
 			width:40%;
+                        border-top-left-radius:20px;
+                        border-top-right-radius:20px;
 		}
 			
 		table.DA td
 		{
 			padding:10px;
 			padding-bottom:20px;
-			background-color:#ecedff;
+			/*background-color:#ecedff;*/
 		}
 		
 		table.DA tr td input
 		{
 			width: 400px;
 		}
+                /*html 
+                { 
+                    background: url(Sunset.jpg) no-repeat center center fixed; 
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover;
+                  }*/
 	</style>
     </head>
     
@@ -89,7 +99,7 @@ and open the template in the editor.
             }
             else
             {
-                print '<h1><center>Free Food Event Form</center></h1>';
+                print '<h1 style="color:yellow;"><center>Free Food Event Form</center></h1>';
                 print '<form method="POST" name="event_form" onsubmit="return validateForm()">';
                 print '    <table class="DA">';
                 print '         <tr><td><span style="color:red;font-size:75%;">*Required Fields</span></td></tr>';
