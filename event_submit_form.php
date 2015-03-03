@@ -99,7 +99,7 @@ and open the template in the editor.
             }
             else
             {
-                print '<h1 style="color:yellow;"><center>Free Food Event Form</center></h1>';
+                print '<h1><center>Free Food Event Form</center></h1>';
                 print '<form method="POST" name="event_form" onsubmit="return validateForm()">';
                 print '    <table class="DA">';
                 print '         <tr><td><span style="color:red;font-size:75%;">*Required Fields</span></td></tr>';
