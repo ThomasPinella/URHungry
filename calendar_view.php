@@ -15,9 +15,10 @@ and open the template in the editor.
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
         <script>
             $( document ).ready(function() {
-                $('.date').click(function(){
+                $('.date').click(function() {
                     if($(this).css('height') != '360px')
                     {
                         $('.date').animate({width:'180', height:'220'}, 'fast');
@@ -99,7 +100,52 @@ and open the template in the editor.
                 -moz-background-size: cover;
                 -o-background-size: cover;
                 background-size: cover;
-              }
+            }
+            
+            .black_overlay
+            {
+                display: none;
+                position: absolute;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 100%;
+                background-color: black;
+                z-index:1001;
+                opacity:.70;
+                filter: alpha(opacity=70);
+            }
+            
+            .white_content 
+            {
+                display: none;
+                position: absolute;
+                top: 25%;
+                left: 25%;
+                width: 50%;
+                height: 50%;
+                padding: 16px;
+                border-radius:8;
+                background-color: white;
+                z-index:1002;
+                overflow: auto;
+            }
+
+            #loginbutton 
+            {
+                transition:background-color 0.2s ease;
+                background-color:white;
+                border-radius:6px;
+                padding:6px;
+                float:right;
+                color:black;
+                cursor:pointer;
+            }
+            
+            #loginbutton:hover
+            {
+                background-color:green;
+            }
         </style>
     </head>
     <body>
@@ -128,7 +174,7 @@ and open the template in the editor.
                 $ur = new Database();
                 $ur->db_connect();
                 $dateformat = $current_date->format('Y-m-d');
-                $query = "SELECT * FROM free_food_events WHERE '$dateformat' = date(event_when);";
+                $query = "SELECT * FROM free_food_events WHERE '$dateformat' = date(event_when) ORDER BY event_when;";
                 $result = $ur->do_query($query);
                 $counter = 0;
                 while ($row = mysqli_fetch_array($result))
@@ -148,6 +194,11 @@ and open the template in the editor.
                 }
                 print '</table>';
             }
-        ?>
+        ?>   
+                <div onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'" id="loginbutton" class="popupbutton">Club Login</div>
+                
+                <div id="light" class="white_content">This is the lightbox content. <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></div>
+                <div id="fade" class="black_overlay"></div>
+        
     </body>
 </html>
