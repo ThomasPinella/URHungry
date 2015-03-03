@@ -40,11 +40,15 @@ and open the template in the editor.
             }
             .date
             {
+                background-color:white;
                 margin:0px;
-                border:3px solid black;
+                border-top:3px solid black;
+                border-bottom:3px solid black;
+                border-right:3px solid black;
                 width:180px;
                 height:220px;
                 float:left;
+                overflow-y:scroll;
             }
             
             .date span
@@ -61,6 +65,7 @@ and open the template in the editor.
             #a0
             {
                 border-top-left-radius:20px;
+                border-left:3px solid black;
                 width:300px;
                 height:360px;
             }
@@ -69,14 +74,40 @@ and open the template in the editor.
             {
                 border-top-right-radius:20px;
             }
+            
+            .food_table
+            {
+                table-layout:fixed;
+                width:100%;
+                /*height:89%;*/
+                /*border:3px solid black;*/
+            }
+            
+            .food_table td
+            {
+                border:2px solid black;
+                display:block;
+                height:50px;
+                border-spacing:0;
+                border-collapse:collapse;
+            }
+                     
+            html 
+            { 
+                background: url(urh_bg.jpg) no-repeat center center fixed; 
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+              }
         </style>
     </head>
     <body>
-        
         <?php
             $counter = 0;
             print '<div class="parent_div">';
             $date = new DateTime();
+            $date->setTimezone(new DateTimeZone('America/New_York'));
             while ($counter < 5)
             {
                 print '<div id="a'.$counter.'" class="date">';
@@ -93,21 +124,27 @@ and open the template in the editor.
             
             function createTable($current_date)
             {
-                print '<table>';
+                print '<table cellspacing="0" class="food_table">';
                 $ur = new Database();
                 $ur->db_connect();
                 $dateformat = $current_date->format('Y-m-d');
-                $query = "SELECT * FROM free_food_events WHERE '$dateformat' = date(event_when)";
-                //print $query;
+                $query = "SELECT * FROM free_food_events WHERE '$dateformat' = date(event_when);";
                 $result = $ur->do_query($query);
-                
+                $counter = 0;
                 while ($row = mysqli_fetch_array($result))
                 {
                     print '<tr><td>';
                     print $row['event_host'];
+                    print '<br>';
+                    print $row['event_where'];
+                    print '<br>';
+                    print date('g:i a', strtotime($row['event_when']));
                     print '</td></tr>';
-                    //print $row['event_where'];
-                    print '<br />';
+                    $counter++;
+                }
+                if ($counter == 0)
+                {
+                    print '<tr><td>No free food today :(</td></tr>';
                 }
                 print '</table>';
             }
