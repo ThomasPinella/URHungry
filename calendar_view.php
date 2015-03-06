@@ -23,10 +23,12 @@ and open the template in the editor.
                     {
                         $('.date').animate({width:'180', height:'220'}, 'fast');
                         $('.date').find('span').animate({'font-size':'20px'}, 'fast');
+                        $('.date').find('.food_table td table td').animate({'font-size':'12px'}, 'fast');
 
                     }
                     $(this).animate({width:'300', height:'360'}, 'fast');
                     $(this).find('span').animate({'font-size':'30px'}, 'fast');
+                    $(this).find('.food_table td table td').animate({'font-size':'30px'}, 'fast');
                 });
             });
         </script>
@@ -87,15 +89,31 @@ and open the template in the editor.
             .food_table td
             {
                 border:2px solid black;
-                display:block;
-                height:50px;
+                /*display:block;*/
+                /*height:50px;*/
                 border-spacing:0;
                 border-collapse:collapse;
+            }
+            
+            .food_table td table td
+            {
+                font-size:12px;
+                border:none;
+            }
+            
+            .food_table td table .event_detail
+            {
+                text-align:right;
+            }
+            
+            .food_table td table .event_time
+            {
+                text-align:left;
             }
                      
             html 
             { 
-                background: url(urh_bg.jpg) no-repeat center center fixed; 
+                background: url(new_bg.jpg) no-repeat center center fixed; 
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 -o-background-size: cover;
@@ -125,7 +143,7 @@ and open the template in the editor.
                 width: 50%;
                 height: 50%;
                 padding: 16px;
-                border-radius:8;
+                border-radius:8px;
                 background-color: white;
                 z-index:1002;
                 overflow: auto;
@@ -168,6 +186,8 @@ and open the template in the editor.
             }
             print '</div>';
             
+            createDetailView();
+            
             function createTable($current_date)
             {
                 print '<table cellspacing="0" class="food_table">';
@@ -179,12 +199,17 @@ and open the template in the editor.
                 $counter = 0;
                 while ($row = mysqli_fetch_array($result))
                 {
-                    print '<tr><td>';
-                    print $row['event_host'];
-                    print '<br>';
-                    print $row['event_where'];
-                    print '<br>';
-                    print date('g:i a', strtotime($row['event_when']));
+                    print '<tr><td onclick="document.getElementById(\'detail_view\').style.display=\'block\';document.getElementById(\'fade\').style.display=\'block\'">';
+                    print '<table style="width:100%;">';
+                    print '<tr><td class="event_time" rowspan="2">'.date('g:ia', strtotime($row['event_when'])).'</td>';
+                    print '<td class="event_detail">'.$row['event_host'].'</td></tr>';
+                    print '<tr><td class="event_detail">'.$row['event_where'].'</td></tr>';
+                    print '</table>';
+                    //print $row['event_host'];
+                    //print '<br>';
+                    //print $row['event_where'];
+                    //print '<br>';
+                    //print date('g:i a', strtotime($row['event_when']));
                     print '</td></tr>';
                     $counter++;
                 }
@@ -193,11 +218,18 @@ and open the template in the editor.
                     print '<tr><td>No free food today :(</td></tr>';
                 }
                 print '</table>';
+                //return 
+            }
+            
+            function createDetailView()
+            {
+                print '<div id="detail_view" class="white_content">Hello. <a href="javascript:void(0)" onclick = "document.getElementById(\'detail_view\').style.display=\'none\';document.getElementById(\'fade\').style.display=\'none\'">Close</a></div>';
+                print '<div id="fade" class="black_overlay"></div>';
             }
         ?>   
                 <div onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'" id="loginbutton" class="popupbutton">Club Login</div>
                 
-                <div id="light" class="white_content">This is the lightbox content. <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></div>
+                <div id="light" class="white_content">This is the lightbox content. <a href="javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a></div>
                 <div id="fade" class="black_overlay"></div>
         
     </body>
