@@ -54,6 +54,12 @@ and open the template in the editor.
                 overflow-y:scroll;
             }
             
+            .date:hover
+            {
+                cursor:pointer;
+            }
+            
+            
             .date span
             {
                 font-size:20px;
@@ -71,6 +77,11 @@ and open the template in the editor.
                 border-left:3px solid black;
                 width:300px;
                 height:360px;
+            }
+            
+            #a0 .food_table td table td
+            {
+                font-size:30px;
             }
             
             #a4
@@ -185,9 +196,7 @@ and open the template in the editor.
                 $counter++;
             }
             print '</div>';
-            
-            createDetailView();
-            
+                        
             function createTable($current_date)
             {
                 print '<table cellspacing="0" class="food_table">';
@@ -199,7 +208,7 @@ and open the template in the editor.
                 $counter = 0;
                 while ($row = mysqli_fetch_array($result))
                 {
-                    print '<tr><td onclick="document.getElementById(\'detail_view\').style.display=\'block\';document.getElementById(\'fade\').style.display=\'block\'">';
+                    print '<tr><td onclick="document.getElementById(\'detail_view'.$counter.'\').style.display=\'block\';document.getElementById(\'fade\').style.display=\'block\'">';
                     print '<table style="width:100%;">';
                     print '<tr><td class="event_time" rowspan="2">'.date('g:ia', strtotime($row['event_when'])).'</td>';
                     print '<td class="event_detail">'.$row['event_host'].'</td></tr>';
@@ -211,6 +220,7 @@ and open the template in the editor.
                     //print '<br>';
                     //print date('g:i a', strtotime($row['event_when']));
                     print '</td></tr>';
+                    createDetailView($counter, $row);
                     $counter++;
                 }
                 if ($counter == 0)
@@ -221,9 +231,9 @@ and open the template in the editor.
                 //return 
             }
             
-            function createDetailView()
+            function createDetailView($num, $row)
             {
-                print '<div id="detail_view" class="white_content">Hello. <a href="javascript:void(0)" onclick = "document.getElementById(\'detail_view\').style.display=\'none\';document.getElementById(\'fade\').style.display=\'none\'">Close</a></div>';
+                print '<div id="detail_view'.$num.'" class="white_content">'.$row['event_host'].'<br>'.$row['event_where'].'<br>'.date('g:ia', strtotime($row['event_when'])).'<br><br>'.$row['description'].'<br><br>Link: <a href="http://'.$row['link'].'">'.$row['link'].'</a><a style="position:absolute;top:12px;right:12px" href="javascript:void(0)" onclick = "document.getElementById(\'detail_view'.$num.'\').style.display=\'none\';document.getElementById(\'fade\').style.display=\'none\'">Close</a></div>';
                 print '<div id="fade" class="black_overlay"></div>';
             }
         ?>   
