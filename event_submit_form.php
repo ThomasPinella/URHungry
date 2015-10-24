@@ -92,8 +92,8 @@ and open the template in the editor.
 
                 $insert_query = 'INSERT INTO free_food_events VALUES (DEFAULT, '.$datetime.', "'.$_REQUEST['where'].'", "'.$_REQUEST['host'].'", "'.$_REQUEST['description'].'", '.$link.');';
                 $result = $ur->do_query($insert_query);
-                print $insert_query;
-                print '<h1><center>Successfully Submitted!</center></h1><br>';
+                //print $insert_query;
+                print '<h1><center>Successfully Submitted!</center></h1><br><br>';
                 print '<a href="index.php">Calendar</a><br>';
                 print '<a href="event_submit_form.php">Submit another event</a>';
             }
